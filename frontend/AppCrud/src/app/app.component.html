@@ -1,0 +1,152 @@
+
+  
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Pacientes</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       
+      <form (ngSubmit)="savePaciente(forma)" #forma="ngForm" novalidate="">
+        <div class="modal-body">
+             <div class="form-group row">
+                <label class="col-3 col-form-label form-padding">Nombre:</label>
+                <div class="col-8">          
+                  <input class="form-control"
+                        type="text"
+                        placeholder="Nombre"
+                        name="nombre"
+                        [(ngModel)]="paciente.nombre"
+                        required>
+                </div>
+             </div>
+          
+              <div class="form-group row">
+                <label class="col-3 col-form-label form-padding">Apellido:</label>
+                <div class="col-8">
+          
+                  <input class="form-control"
+                        type="text"
+                        placeholder="Apellido"
+                        name="apellido"
+                        [(ngModel)]="paciente.apellido"
+                        >
+                </div>
+              </div>
+
+              <div class="form-group row">
+                  <label class="col-3 col-form-label form-padding">Fecha Nacimiento:</label>
+                  <div class="col-8">
+            
+                    <input class="form-control"
+                          type="text"
+                          placeholder="fecha nacimiento"
+                          name="fecha_nacimiento"
+                          [(ngModel)]="paciente.fecha_nacimiento"
+                          >
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label class="col-3 col-form-label form-padding">Estatura:</label>
+                  <div class="col-8">
+            
+                    <input class="form-control"
+                          type="number"
+                          placeholder="estatura"
+                          name="estatura"
+                          [(ngModel)]="paciente.estatura"                          
+                          >
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label class="col-3 col-form-label form-padding">Peso:</label>
+                  <div class="col-8">
+            
+                    <input class="form-control"
+                          type="number"
+                          placeholder="peso"
+                          name="peso"
+                          [(ngModel)]="paciente.peso"
+                          >
+                  </div>
+              </div>
+                               
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+                                                    
+      </form>
+
+        
+      </div>
+    </div>
+  </div> -->
+
+<app-mpaciente [paciente]="pacienteSeleccionado"></app-mpaciente>
+
+<div class="container">
+
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- <button class="btn btn-primary float-md-right">Agregar</button> -->
+    <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary float-md-right" data-toggle="modal" data-target="#exampleModal">
+    Agregar
+  </button> -->
+  <!-- <h1 class="animated bounce infinite">Loading...</h1> -->
+  <button (click)="ShowModal(nuevoPaciente)" type="button" class="btn btn-primary float-md-right">
+      Agregar
+    </button>
+  </div>
+</div>
+
+<div class="row">
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Fecha Nacimiento</th>
+      <th scope="col">Estatura</th>
+      <th scope="col">Peso</th>
+      <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody>   
+    <!-- <tr *ngFor="let paciente of servicePacientes.listadoPacientesService"> -->
+    <tr *ngFor="let paciente of listadoPacientes">
+      <th scope="row">{{paciente.id}}</th>
+      <td>{{ paciente.nombre }}</td>
+      <td>{{ paciente.apellido }}</td>
+      <td>{{ paciente.fecha_nacimiento | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ paciente.estatura}}</td>
+      <td>{{ paciente.peso}}</td>
+      <td>
+          <!-- <a href="#"><i class="fas fa-edit"></i></a>|<a href="#"><i class="fas fa-user-times"></i></a> -->
+        <button class="btn btn-success" (click)= "ShowModal(paciente)" style="margin-right: 10px">Editar</button>
+        <button class="btn btn-danger" (click)="eliminar(paciente)">Eliminar</button>
+      </td>
+      
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+<router-outlet></router-outlet>
+</div>
+
+</div>

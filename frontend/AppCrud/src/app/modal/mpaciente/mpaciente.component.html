@@ -1,0 +1,190 @@
+<div class="abrir-modal animated fadeIn faster" *ngIf="servicePacientes.showModal">
+    <div  class="modal"  tabindex="-1" role="dialog" style="display: block">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel" *ngIf="paciente.id==0">Agregar Paciente</h5>
+              <h5 class="modal-title" id="exampleModalLabel"*ngIf="paciente.id!=0">Actualizar Paciente</h5>
+              <button (click)="HideModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!-- <form (ngSubmit)="savePaciente(forma)" #forma="ngForm" novalidate=""> -->
+              <form [formGroup]="forma" (ngSubmit)="saveDataPaciente()" novalidate="novalidate">
+              <div class="modal-body">
+                   <div class="form-group row">
+                      <label class="col-3 col-form-label form-padding">Nombre:</label>
+                      <div class="col-8">          
+                        <input class="form-control"
+                              type="text"
+                              placeholder=""
+                              [(ngModel)]="paciente.nombre"
+                              formControlName="nombre">
+                              <div *ngIf="forma.controls.nombre.errors?.required && clickSubmit">
+                                 <span class="text-danger">Campo requerido</span>
+                              </div>
+                      </div>
+                   </div>
+                
+                    <div class="form-group row">
+                      <label class="col-3 col-form-label form-padding">Apellido:</label>
+                      <div class="col-8">
+                
+                        <input class="form-control"
+                              type="text"
+                              placeholder=""
+                              formControlName="apellido"  
+                              [(ngModel)]="paciente.apellido"
+                              >
+                            <div *ngIf="forma.controls.apellido.errors?.required && clickSubmit">
+                                <span class="text-danger">Campo requerido</span>
+                             </div>
+                      </div>
+                    </div>
+      
+                    <div class="form-group row">
+                        <label class="col-3 col-form-label form-padding">Fecha Nacimiento:</label>
+                        <div class="col-8">
+                          <!-- <mat-form-field>  -->
+                                <input matInput  class="form-control" [matDatepicker]="miDatepicker"                             
+                                formControlName="fecha_nacimiento"
+                                [(ngModel)]="paciente.fecha_nacimiento"
+                                style="display: inline; width: 300px;">
+                                <mat-datepicker-toggle matSuffix [for]="miDatepicker"></mat-datepicker-toggle>
+                                <mat-datepicker #miDatepicker></mat-datepicker>
+                          <!-- </mat-form-field> -->
+                                <div *ngIf="forma.controls.fecha_nacimiento.errors?.required && clickSubmit">
+                                  <span class="text-danger">Campo requerido</span>
+                               </div>
+                        </div>
+                    </div>
+      
+                    <div class="form-group row">
+                        <label class="col-3 col-form-label form-padding">Estatura:</label>
+                        <div class="col-8">
+                  
+                          <input class="form-control"
+                                type="number"
+                                placeholder=""
+                                formControlName="estatura"
+                                [(ngModel)]="paciente.estatura"
+                                >
+                                <div *ngIf="forma.controls.estatura.errors?.required && clickSubmit">
+                                  <span class="text-danger">Campo requerido</span>
+                               </div>
+                        </div>
+                    </div>
+      
+                    <div class="form-group row">
+                        <label class="col-3 col-form-label form-padding">Peso:</label>
+                        <div class="col-8">
+                  
+                          <input class="form-control"
+                                type="number"
+                                placeholder=""
+                                formControlName="peso"
+                                [(ngModel)]="paciente.peso"
+                                >
+                                <div *ngIf="forma.controls.peso.errors?.required && clickSubmit">
+                                  <span class="text-danger">Campo requerido</span>
+                               </div>
+                        </div>
+                    </div>
+                                     
+              </div>
+              <div class="modal-footer">
+                  <button (click)="HideModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+                  
+              </div>
+              <!-- <div class="modal-footer">
+                  <button (click)="HideModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button *ngIf="paciente.id == 0" type="submit" class="btn btn-primary">Guardar</button>
+                  <button *ngIf="paciente.id != 0" type="submit" class="btn btn-primary">Actualizar</button>
+              </div> -->
+
+              <!-- {{forma.valid}} -->
+                                                          
+            </form>
+            
+
+          <!-- <form (ngSubmit)="savePaciente(forma)" #forma="ngForm" novalidate="">
+            <div class="modal-body">
+                 <div class="form-group row">
+                    <label class="col-3 col-form-label form-padding">Nombre:</label>
+                    <div class="col-8">          
+                      <input class="form-control"
+                            type="text"
+                            placeholder="Nombre"
+                            name="nombre"
+                            [(ngModel)]="paciente.nombre"
+                            required>
+                    </div>
+                 </div>
+              
+                  <div class="form-group row">
+                    <label class="col-3 col-form-label form-padding">Apellido:</label>
+                    <div class="col-8">
+              
+                      <input class="form-control"
+                            type="text"
+                            placeholder="Apellido"
+                            name="apellido"
+                            [(ngModel)]="paciente.apellido"
+                            >
+                    </div>
+                  </div>
+    
+                  <div class="form-group row">
+                      <label class="col-3 col-form-label form-padding">Fecha Nacimiento:</label>
+                      <div class="col-8">
+
+                              <input class="form-control" [matDatepicker]="miDatepicker"                             
+                              name="fecha_nacimiento"
+                              [(ngModel)]="paciente.fecha_nacimiento"
+                              style="display: inline; width: 300px;">
+                              <mat-datepicker-toggle [for]="miDatepicker"></mat-datepicker-toggle>
+                              <mat-datepicker #miDatepicker></mat-datepicker>
+                      </div>
+                  </div>
+    
+                  <div class="form-group row">
+                      <label class="col-3 col-form-label form-padding">Estatura:</label>
+                      <div class="col-8">
+                
+                        <input class="form-control"
+                              type="number"
+                              placeholder="estatura"
+                              name="estatura"
+                              [(ngModel)]="paciente.estatura"                          
+                              >
+                      </div>
+                  </div>
+    
+                  <div class="form-group row">
+                      <label class="col-3 col-form-label form-padding">Peso:</label>
+                      <div class="col-8">
+                
+                        <input class="form-control"
+                              type="number"
+                              placeholder="peso"
+                              name="peso"
+                              [(ngModel)]="paciente.peso"
+                              >
+                      </div>
+                  </div>
+                                   
+            </div>
+            <div class="modal-footer">
+                <button (click)="HideModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button *ngIf="paciente.id == 0" type="submit" class="btn btn-primary">Guardar</button>
+                <button *ngIf="paciente.id != 0" type="submit" class="btn btn-primary">Actualizar</button>
+            </div>
+                                                        
+          </form> -->
+    
+            
+          </div>
+        </div>
+    </div>
+</div>
